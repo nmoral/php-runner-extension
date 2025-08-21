@@ -245,9 +245,9 @@ On adore les contributions ! Voici comment vous pouvez aider :
 
 ## 📞 Support & Communauté
 
-- **GitHub Issues** : [Signaler des bugs ou demander des fonctionnalités](https://github.com/your-username/docker-php-runner/issues)
-- **Documentation** : Consultez le [Wiki](https://github.com/your-username/docker-php-runner/wiki) pour des guides détaillés
-- **Discussions** : Rejoignez la conversation dans [GitHub Discussions](https://github.com/your-username/docker-php-runner/discussions)
+- **GitHub Issues** : [Signaler des bugs ou demander des fonctionnalités](https://github.com/nmoral/php-runner-extension/issues)
+- **Documentation** : Consultez le [Wiki](https://github.com/nmoral/php-runner-extension/wiki) pour des guides détaillés
+- **Discussions** : Rejoignez la conversation dans [GitHub Discussions](https://github.com/nmoral/php-runner-extension/discussions)
 
 ---
 

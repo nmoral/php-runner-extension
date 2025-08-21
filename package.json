@@ -2,18 +2,29 @@
   "name": "docker-php-runner",
   "displayName": "Docker PHP Runner",
   "publisher": "nmoral",
-  "description": "Exécute des commandes PHP dans des containers Docker",
-  "version": "1.0.0-RC3",
+  "description": "Exécute des commandes PHP dans des containers Docker avec une interface intuitive dans VS Code",
+  "version": "1.0.1",
+  "keywords": [
+    "docker",
+    "php",
+    "symfony",
+    "container",
+    "development",
+    "terminal",
+    "commands",
+    "web",
+    "server",
+    "backend"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/docker-php-runner.git"
+    "url": "https://github.com/nmoral/php-runner-extension.git"
   },
   "engines": {
     "vscode": "^1.74.0"
   },
   "categories": [
-    "Other",
-    "Docker"
+    "Other"
   ],
   "activationEvents": [
     "onCommand:dockerPhpRunner.runCommand",

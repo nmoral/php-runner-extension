@@ -41,8 +41,8 @@ Before we dive in, make sure you have:
 ### Method 2: From Source (For the brave developers)
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/docker-php-runner.git
-cd docker-php-runner
+git clone https://github.com/nmoral/php-runner-extension.git
+cd php-runner-extension
 
 # Install dependencies
 npm install
@@ -235,9 +235,9 @@ We love contributions! Here's how you can help:
 
 ## 📞 Support & Community
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/your-username/docker-php-runner/issues)
-- **Documentation**: Check the [Wiki](https://github.com/your-username/docker-php-runner/wiki) for detailed guides
-- **Discussions**: Join the conversation in [GitHub Discussions](https://github.com/your-username/docker-php-runner/discussions)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/nmoral/php-runner-extension/issues)
+- **Documentation**: Check the [Wiki](https://github.com/nmoral/php-runner-extension/wiki) for detailed guides
+- **Discussions**: Join the conversation in [GitHub Discussions](https://github.com/nmoral/php-runner-extension/discussions)
 
 ---
 
