@@ -1,0 +1,32 @@
+# Docker PHP Runner Extension - Project Overview
+
+This is a VS Code extension that allows developers to execute PHP commands inside Docker containers with an intuitive user interface. The extension is written in TypeScript and provides seamless integration between VS Code and Docker environments.
+
+## Project Structure
+- **Main Entry Point**: [src/extension.ts](mdc:src/extension.ts) - Contains all extension logic and command registrations
+- **Configuration**: [package.json](mdc:package.json) - Extension metadata, commands, and configuration schema
+- **Documentation**: [README.md](mdc:README.md) - Comprehensive user guide and feature documentation
+
+## Core Functionality
+The extension provides four main commands:
+1. **Run Custom Command** - Execute any PHP command in Docker
+2. **Clear Symfony Cache** - Quick cache clearing for Symfony projects
+3. **Run PHPUnit Tests** - Execute PHPUnit test suite
+4. **Configure Container** - Interactive setup for Docker container configuration
+
+## Key Features
+- Docker Compose service detection and management
+- Interactive file selection for docker-compose.yml
+- Smart autocompletion for common paths and configurations
+- Support for both docker-compose and direct container execution
+- Comprehensive error handling and user feedback
+
+## Development Notes
+- Built with TypeScript and VS Code Extension API
+- Uses async/await patterns for all Docker operations
+- Implements proper error handling and user notifications
+- Follows VS Code extension best practices and patterns
+description:
+globs:
+alwaysApply: false
+---

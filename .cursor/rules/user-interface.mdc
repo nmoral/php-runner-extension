@@ -1,0 +1,42 @@
+# User Interface Patterns
+
+## VS Code UI Components
+- Use `vscode.window.showInputBox` for simple text input
+- Use `vscode.window.showQuickPick` for selection from predefined options
+- Use `vscode.window.showOpenDialog` for file selection
+- Use `vscode.window.showInformationMessage` for success notifications
+- Use `vscode.window.showErrorMessage` for error notifications
+
+## User Interaction Flow
+- Provide clear prompts and placeholders for all inputs
+- Use emojis and descriptive labels to make options clear
+- Offer multiple selection methods (browse, default, manual)
+- Provide validation and feedback for user inputs
+
+## File Selection Patterns
+- Support browsing for files with appropriate filters
+- Detect and suggest common file locations
+- Validate file existence before processing
+- Provide fallback options for file selection
+
+## Configuration Interface
+- Guide users through configuration step by step
+- Offer intelligent defaults and suggestions
+- Validate configurations before saving
+- Provide clear feedback about saved settings
+
+## Output and Logging
+- Use `vscode.OutputChannel` for detailed logging
+- Show relevant information in output channels
+- Provide clear success/error messages
+- Log all Docker commands for debugging
+
+## Error Handling UI
+- Show user-friendly error messages
+- Log technical details to output channels
+- Provide actionable error information
+- Handle edge cases gracefully with clear feedback
+description:
+globs:
+alwaysApply: false
+---

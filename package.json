@@ -1,0 +1,234 @@
+{
+  "name": "docker-php-runner",
+  "displayName": "Docker PHP Runner",
+  "publisher": "nmoral",
+  "description": "Exécute des commandes PHP dans des containers Docker",
+  "version": "0.3.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/docker-php-runner.git"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Docker"
+  ],
+  "activationEvents": [
+    "onCommand:dockerPhpRunner.runCommand",
+    "onCommand:dockerPhpRunner.clearCache",
+    "onCommand:dockerPhpRunner.runTests",
+    "onCommand:dockerPhpRunner.configureContainer",
+    "onCommand:dockerPhpRunner.exploreFiles",
+    "onCommand:dockerPhpRunner.browseContainer",
+    "onCommand:dockerPhpRunner.pickDockerComposePath",
+    "onCommand:dockerPhpRunner.pickServiceName",
+    "onCommand:dockerPhpRunner.runSavedCommand",
+    "onCommand:dockerPhpRunner.addSavedCommand",
+    "onCommand:dockerPhpRunner.editSavedCommand",
+    "onCommand:dockerPhpRunner.deleteSavedCommand"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dockerPhpRunner.runCommand",
+        "title": "Docker PHP: Exécuter une commande",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.clearCache",
+        "title": "Docker PHP: Vider le cache Symfony",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.runTests",
+        "title": "Docker PHP: Lancer les tests PHPUnit",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.configureContainer",
+        "title": "Docker PHP: Configurer le container",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.exploreFiles",
+        "title": "Docker PHP: Explorer les fichiers du workspace",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.browseContainer",
+        "title": "Docker PHP: Parcourir les fichiers du container",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.pickDockerComposePath",
+        "title": "Docker PHP: Choisir un docker-compose.yml",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.pickServiceName",
+        "title": "Docker PHP: Choisir un service (auto-complétion)",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.runSavedCommand",
+        "title": "Docker PHP: Exécuter une commande enregistrée",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.addSavedCommand",
+        "title": "Docker PHP: Ajouter une commande enregistrée",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.editSavedCommand",
+        "title": "Docker PHP: Modifier une commande enregistrée",
+        "category": "Docker PHP"
+      },
+      {
+        "command": "dockerPhpRunner.deleteSavedCommand",
+        "title": "Docker PHP: Supprimer une commande enregistrée",
+        "category": "Docker PHP"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "dockerPhpRunner.savedCommandsView",
+          "name": "Docker PHP: Commandes enregistrées"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "dockerPhpRunner.runCommand"
+        },
+        {
+          "command": "dockerPhpRunner.clearCache"
+        },
+        {
+          "command": "dockerPhpRunner.runTests"
+        },
+        {
+          "command": "dockerPhpRunner.configureContainer"
+        },
+        {
+          "command": "dockerPhpRunner.exploreFiles"
+        },
+        {
+          "command": "dockerPhpRunner.browseContainer"
+        },
+        {
+          "command": "dockerPhpRunner.runSavedCommand"
+        },
+        {
+          "command": "dockerPhpRunner.addSavedCommand"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "dockerPhpRunner.runSavedCommand",
+          "when": "view == dockerPhpRunner.savedCommandsView && viewItem == savedCommand",
+          "group": "inline"
+        },
+        {
+          "command": "dockerPhpRunner.editSavedCommand",
+          "when": "view == dockerPhpRunner.savedCommandsView && viewItem == savedCommand",
+          "group": "navigation@1"
+        },
+        {
+          "command": "dockerPhpRunner.deleteSavedCommand",
+          "when": "view == dockerPhpRunner.savedCommandsView && viewItem == savedCommand",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Docker PHP Runner",
+      "properties": {
+        "dockerPhpRunner.containerName": {
+          "type": "string",
+          "default": "",
+          "description": "Nom du container Docker à utiliser"
+        },
+        "dockerPhpRunner.serviceName": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Nom du service dans docker-compose.yml. Utilisez la commande [Choisir un service](command:dockerPhpRunner.pickServiceName) pour l'autocomplétion."
+        },
+        "dockerPhpRunner.workingDirectory": {
+          "type": "string",
+          "default": "/var/www/html",
+          "description": "Répertoire de travail dans le container"
+        },
+        "dockerPhpRunner.phpExecutable": {
+          "type": "string",
+          "default": "php",
+          "description": "Chemin vers l'exécutable PHP dans le container"
+        },
+        "dockerPhpRunner.dockerComposePath": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Chemin personnalisé vers le fichier docker-compose.yml (laisser vide pour utiliser le fichier par défaut du workspace). [Parcourir](command:dockerPhpRunner.pickDockerComposePath)"
+        },
+        "dockerPhpRunner.savedCommands": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "Liste de commandes enregistrées au niveau du workspace. Chaque entrée peut être une commande simple ou une séquence (steps).",
+          "items": {
+            "type": "object",
+            "required": [
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Nom affiché dans le sélecteur"
+              },
+              "command": {
+                "type": "string",
+                "description": "Commande unique à exécuter (ex: bin/console cache:clear)"
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Séquence de commandes à exécuter dans l'ordre"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./ && tsc -p ./src/test/tsconfig.json",
+    "watch": "tsc -watch -p ./ & tsc -watch -p ./src/test/tsconfig.json",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "mocha --require ./out/test/src/test/setup.js --recursive \"out/test/**/*.js\"",
+    "test:mocha": "mocha --require ./out/test/src/test/setup.js --recursive \"out/test/**/*.js\"",
+    "coverage": "npm run compile && npx --yes c8 --include 'out/**/*.js' --exclude 'out/test/**' -r text-summary -r lcov npm run test:mocha"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@types/mocha": "^10.0.6",
+    "@types/chai": "^4.3.16",
+    "mocha": "^10.6.0",
+    "chai": "^4.4.1",
+    "mock-require": "^3.0.6",
+    "c8": "^9.1.0",
+    "@vscode/vsce": "^3.6.0",
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4",
+    "vsce": "^2.15.0"
+  }
+}

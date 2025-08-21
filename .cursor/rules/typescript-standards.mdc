@@ -1,0 +1,35 @@
+# TypeScript Coding Standards
+
+## Code Style
+- Use TypeScript strict mode with proper type annotations
+- Prefer `const` over `let` when variables won't be reassigned
+- Use `async/await` patterns instead of raw Promises
+- Always handle errors with try-catch blocks and proper user feedback
+
+## VS Code Extension Patterns
+- Use `vscode.ExtensionContext` for managing command subscriptions
+- Implement proper command registration with `vscode.commands.registerCommand`
+- Use `vscode.window.showInputBox`, `showQuickPick`, and `showOpenDialog` for user interaction
+- Create output channels with `vscode.window.createOutputChannel` for logging
+- Use `vscode.workspace.getConfiguration` for accessing extension settings
+
+## Error Handling
+- Always wrap async operations in try-catch blocks
+- Provide meaningful error messages to users via `vscode.window.showErrorMessage`
+- Log errors to output channels for debugging
+- Validate user inputs before processing
+
+## Interface Definitions
+- Define clear interfaces for configuration objects
+- Use descriptive names for interfaces and types
+- Export interfaces that might be used by other parts of the extension
+
+## File Organization
+- Keep the main extension logic in [src/extension.ts](mdc:src/extension.ts)
+- Use clear function names that describe their purpose
+- Group related functionality together
+- Add JSDoc comments for complex functions
+description:
+globs:
+alwaysApply: false
+---

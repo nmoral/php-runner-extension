@@ -1,0 +1,43 @@
+# Extension Configuration Standards
+
+## Package.json Structure
+The [package.json](mdc:package.json) file defines the extension's metadata and configuration schema.
+
+### Command Registration
+- Register all commands in the `contributes.commands` section
+- Use consistent naming convention: `dockerPhpRunner.commandName`
+- Provide clear titles and categories for all commands
+- Include all commands in the command palette menu
+
+### Configuration Schema
+- Define configuration properties under `contributes.configuration`
+- Use descriptive property names with clear descriptions
+- Provide sensible default values
+- Group related settings under the `dockerPhpRunner` namespace
+
+### Activation Events
+- Use `onCommand` activation events for command-based activation
+- Ensure all commands are listed in activation events
+- Keep activation events minimal for performance
+
+## Configuration Properties
+Current configuration options:
+- `containerName`: Direct Docker container name
+- `serviceName`: Docker Compose service name
+- `workingDirectory`: Container working directory (default: `/var/www/html`)
+- `phpExecutable`: PHP executable path (default: `php`)
+- `dockerComposePath`: Custom docker-compose file path
+
+## Command Categories
+- Group all commands under "Docker PHP" category
+- Use consistent naming for command titles
+- Provide clear descriptions for each command's purpose
+
+## Menu Integration
+- Add all commands to the command palette
+- Use appropriate menu contexts
+- Ensure commands are discoverable via Ctrl+Shift+P
+description:
+globs:
+alwaysApply: false
+---

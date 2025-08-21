@@ -1,0 +1,43 @@
+# Docker Integration Patterns
+
+## Docker Command Execution
+- Use `execAsync` (promisified exec) for all Docker operations
+- Always set the working directory (`cwd`) to the workspace folder
+- Support both `docker exec` and `docker-compose exec` commands
+- Provide clear feedback about which Docker command is being executed
+
+## Docker Compose Handling
+- Parse docker-compose.yml files to extract service information
+- Support custom docker-compose file paths via configuration
+- Detect existing docker-compose files in common locations
+- Validate file existence before attempting to use them
+
+## Container Configuration
+- Support both container names and service names
+- Allow customization of working directory within containers
+- Support custom PHP executable paths
+- Provide intelligent defaults for common PHP environments
+
+## File Path Detection
+Common docker-compose locations to check:
+- `docker-compose.yml` (workspace root)
+- `docker-compose.yaml` (workspace root)
+- `docker-compose.override.yml` (workspace root)
+- `docker/docker-compose.yml` (docker subdirectory)
+- Parent directory docker-compose files
+
+## Service Parsing
+- Implement simple YAML parsing for service extraction
+- Handle basic docker-compose.yml structure
+- Extract service names and container names
+- Provide fallback for parsing errors
+
+## User Experience
+- Offer multiple ways to select docker-compose files (browse, default, manual)
+- Provide autocompletion for common paths and configurations
+- Validate user inputs before processing
+- Show clear feedback about configuration changes
+description:
+globs:
+alwaysApply: false
+---

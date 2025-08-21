@@ -1,0 +1,30 @@
+# Exclude sources and dev artifacts
+src/**
+src/**/*
+
+# Exclude tests and maps from build output
+out/test/**
+out/**/*.map
+
+# Exclude dev/coverage
+.nyc_output/**
+coverage/**
+.cursor/**
+.vscode/**
+
+# Exclude config and tooling files
+.eslintrc*
+.prettierrc*
+.editorconfig
+package-lock.json
+tsconfig.json
+
+# Exclude docs/examples not required at runtime
+DEMO.md
+INSTALL.md
+INSTALLATION.md
+QUICKSTART.md
+RESUME_AMELIORATIONS.md
+SETUP.md
+TROUBLESHOOTING.md
+docker-compose.example.yml

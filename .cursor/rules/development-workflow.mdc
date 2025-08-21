@@ -1,0 +1,43 @@
+# Development Workflow
+
+## Build and Compilation
+- Use `npm run compile` to build the extension
+- Use `npm run watch` for development with auto-compilation
+- TypeScript compilation target is defined in [tsconfig.json](mdc:tsconfig.json)
+- Output files go to the `out/` directory
+
+## Testing
+- Use `npm run test` to run the test suite
+- Use `npm run lint` to check code quality
+- Tests are located in the `out/test/` directory
+- Ensure all commands are properly tested
+
+## Code Quality
+- Use ESLint for code linting and style enforcement
+- Follow TypeScript best practices
+- Maintain consistent code formatting
+- Add JSDoc comments for complex functions
+
+## Development Commands
+Available npm scripts:
+- `compile`: Build the extension
+- `watch`: Watch mode for development
+- `lint`: Run ESLint
+- `test`: Run test suite
+- `vscode:prepublish`: Prepare for publishing
+
+## File Organization
+- Keep source code in the `src/` directory
+- Main extension logic in [src/extension.ts](mdc:src/extension.ts)
+- Configuration in [package.json](mdc:package.json)
+- Documentation in [README.md](mdc:README.md)
+
+## Version Management
+- Update version in [package.json](mdc:package.json) before releases
+- Maintain [CHANGELOG.md](mdc:CHANGELOG.md) with version history
+- Follow semantic versioning principles
+- Document breaking changes clearly
+description:
+globs:
+alwaysApply: false
+---
