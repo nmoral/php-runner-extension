@@ -3,7 +3,7 @@
   "displayName": "Docker PHP Runner",
   "publisher": "nmoral",
   "description": "Exécute des commandes PHP dans des containers Docker",
-  "version": "0.3.1",
+  "version": "1.0.0-RC3",
   "repository": {
     "type": "git",
     "url": "https://github.com/your-username/docker-php-runner.git"
@@ -173,6 +173,11 @@
           "type": "string",
           "default": "",
           "markdownDescription": "Chemin personnalisé vers le fichier docker-compose.yml (laisser vide pour utiliser le fichier par défaut du workspace). [Parcourir](command:dockerPhpRunner.pickDockerComposePath)"
+        },
+        "dockerPhpRunner.dockerUser": {
+          "type": "string",
+          "default": "",
+          "description": "Utilisateur Docker à utiliser pour les commandes (ex: root, www-data, 1000:1000). Laissez vide pour utiliser l'utilisateur par défaut du container."
         },
         "dockerPhpRunner.savedCommands": {
           "type": "array",

@@ -1,4 +1,54 @@
 # Changelog
+
+## [1.0.0-RC3] - 2025-01-XX
+
+### 🔇 Réduit
+- **Logs et messages d'information** : Réduction significative des logs pour une expérience utilisateur plus silencieuse
+  - Suppression de l'echo "Exécution de: [commande]" avant chaque commande
+  - Suppression des messages de succès "Commande exécutée avec succès"
+  - Suppression des messages de confirmation pour les commandes enregistrées
+  - Suppression des messages de configuration (chemin docker-compose, service sélectionné)
+  - Suppression des logs de démarrage de l'extension
+  - Suppression des logs de débogage dans la console
+  - Suppression de la méthode `displayCommandOutput` inutilisée
+
+### 🔧 Amélioré
+- **Expérience utilisateur** : Interface plus silencieuse et moins intrusive
+- **Performance** : Moins de logs à traiter et afficher
+- **Code** : Suppression du code inutilisé et des logs redondants
+
+### 📝 Conservation
+- **Logs d'erreur** : Conservés pour le débogage
+- **Messages informatifs** : "Aucun fichier trouvé" et "Aucune commande enregistrée" conservés
+- **Logs de configuration** : Conservés dans le canal de sortie pour le débogage
+
+## [0.3.3] - 2025-08-21
+
+### 🐛 Corrigé
+- **Affichage des codes de couleur ANSI** : Correction du problème d'affichage des caractères de contrôle ANSI dans le terminal
+  - Suppression des codes de couleur `\u001b[1m`, `\u001b[36m`, `\u001b[0m` qui s'affichaient comme des caractères bruts
+  - Remplacement par un simple `echo` pour afficher la commande exécutée
+  - Résolution du problème `zsh: command not found: mExécution` dans le terminal
+
+## [0.3.2] - 2025-01-XX
+
+### ✨ Ajouté
+- **Configuration de l'utilisateur Docker** : Possibilité de définir l'utilisateur utilisé dans les commandes docker compose
+  - Option `dockerUser` dans la configuration du workspace
+  - Interface de sélection avec options communes (root, www-data, 1000:1000, etc.)
+  - Support de l'option `--user` dans les commandes `docker compose exec` et `docker exec`
+  - Configuration éditable au niveau du workspace
+
+### 🔧 Amélioré
+- **Sécurité** : Possibilité d'éviter d'exécuter les commandes en tant que root
+- **Permissions** : Support pour utiliser des utilisateurs spécifiques et éviter les problèmes de permissions
+- **Développement** : Support des UID/GID locaux pour éviter les problèmes de propriété des fichiers
+
+### 🧪 Tests
+- Ajout de tests pour la nouvelle fonctionnalité `dockerUser`
+- Tests de construction des commandes Docker avec l'option `--user`
+- Tests de configuration pour la propriété `dockerUser`
+
 ## [0.2.0] - 2025-08-21
 
 ### 🐛 Corrigé

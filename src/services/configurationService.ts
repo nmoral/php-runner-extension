@@ -18,7 +18,8 @@ export class ConfigurationService {
             serviceName: config.get<string>('serviceName'),
             workingDirectory: config.get<string>('workingDirectory', '/var/www/html'),
             phpExecutable: config.get<string>('phpExecutable', 'php'),
-            dockerComposePath: config.get<string>('dockerComposePath', '')
+            dockerComposePath: config.get<string>('dockerComposePath', ''),
+            dockerUser: config.get<string>('dockerUser', '')
         };
     }
 
@@ -87,8 +88,13 @@ export class ConfigurationService {
                 return;
             }
 
-            await this.saveConfiguration(selectedService, workingDir, phpExecutable, dockerComposePath);
-            this.displayConfigurationSummary(selectedService, workingDir, phpExecutable, dockerComposePath);
+            const dockerUser = await this.selectDockerUser();
+            if (!dockerUser) {
+                return;
+            }
+
+            await this.saveConfiguration(selectedService, workingDir, phpExecutable, dockerComposePath, dockerUser);
+            this.displayConfigurationSummary(selectedService, workingDir, phpExecutable, dockerComposePath, dockerUser);
 
         } catch (error: any) {
             const errorMessage = `Erreur lors de la configuration: ${error.message}`;
@@ -271,11 +277,40 @@ export class ConfigurationService {
         return phpExecutable.label;
     }
 
+    private async selectDockerUser(): Promise<string | undefined> {
+        const commonUsers = [
+            { label: 'root', description: 'Utilisateur root (par défaut)', value: 'root' },
+            { label: 'www-data', description: 'Utilisateur web standard', value: 'www-data' },
+            { label: '1000:1000', description: 'UID:GID standard pour développement', value: '1000:1000' },
+            { label: '1000', description: 'UID standard pour développement', value: '1000' },
+            { label: '✏️ Autre...', description: 'Saisir un utilisateur personnalisé', value: 'custom' }
+        ];
+
+        const dockerUser = await vscode.window.showQuickPick(commonUsers, {
+            placeHolder: 'Sélectionnez l\'utilisateur Docker à utiliser'
+        });
+
+        if (!dockerUser) {
+            return undefined;
+        }
+
+        if (dockerUser.value === 'custom') {
+            const customUser = await vscode.window.showInputBox({
+                prompt: 'Nom de l\'utilisateur Docker personnalisé',
+                placeHolder: 'ex: app, 1001:1001, etc.'
+            });
+            return customUser?.trim();
+        }
+
+        return dockerUser.value;
+    }
+
     private async saveConfiguration(
         serviceName: string, 
         workingDirectory: string, 
         phpExecutable: string, 
-        dockerComposePath: string
+        dockerComposePath: string,
+        dockerUser: string
     ): Promise<void> {
         const config = vscode.workspace.getConfiguration('dockerPhpRunner');
         
@@ -283,7 +318,8 @@ export class ConfigurationService {
             config.update('serviceName', serviceName, vscode.ConfigurationTarget.Workspace),
             config.update('workingDirectory', workingDirectory, vscode.ConfigurationTarget.Workspace),
             config.update('phpExecutable', phpExecutable, vscode.ConfigurationTarget.Workspace),
-            config.update('dockerComposePath', dockerComposePath, vscode.ConfigurationTarget.Workspace)
+            config.update('dockerComposePath', dockerComposePath, vscode.ConfigurationTarget.Workspace),
+            config.update('dockerUser', dockerUser, vscode.ConfigurationTarget.Workspace)
         ]);
     }
 
@@ -291,15 +327,15 @@ export class ConfigurationService {
         serviceName: string, 
         workingDirectory: string, 
         phpExecutable: string, 
-        dockerComposePath: string
+        dockerComposePath: string,
+        dockerUser: string
     ): void {
         this.output.appendLine(`Configuration sauvegardée:`);
         this.output.appendLine(`Service: ${serviceName}`);
         this.output.appendLine(`Répertoire de travail: ${workingDirectory}`);
         this.output.appendLine(`Exécutable PHP: ${phpExecutable}`);
         this.output.appendLine(`Docker Compose: ${dockerComposePath || 'Fichier par défaut du workspace'}`);
+        this.output.appendLine(`Utilisateur Docker: ${dockerUser || 'root'}`);
         this.output.show();
-
-        vscode.window.showInformationMessage(MESSAGES.CONFIGURATION_SAVED);
     }
 }

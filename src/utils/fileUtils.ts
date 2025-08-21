@@ -101,7 +101,6 @@ export class FileUtils {
                 }
             }
         } catch (error) {
-            console.error('Erreur lors du parsing du docker-compose.yml:', error);
             throw error;
         }
 

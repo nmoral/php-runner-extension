@@ -1,0 +1,87 @@
+# SemVer Version Management Rules
+
+## Overview
+When working with semantic versioning, follow these strict rules for version increments based on user requests.
+
+## Version Format
+- Always use format: `vX.Y.Z` (e.g., v1.0.0, v2.1.3)
+- Strictly follow SemVer convention: MAJOR.MINOR.PATCH
+- Always prefix with "v"
+
+## Version Increment Rules
+
+### MAJOR Version (X)
+**Trigger phrases:**
+- "version majeure", "major version", "nouvelle version majeure"
+- "incrémente la version majeure", "bump major"
+
+**Action:**
+- Increment first number: `vX.y.z` → `v(X+1).0.0`
+- Reset minor and patch to 0
+
+**Examples:**
+- `v1.2.3` → `v2.0.0`
+- `v0.5.1` → `v1.0.0`
+
+### MINOR Version (Y)
+**Trigger phrases:**
+- "version mineure", "minor version", "nouvelle version mineure"
+- "incrémente la version mineure", "bump minor"
+
+**Action:**
+- Increment second number: `vx.Y.z` → `vx.(Y+1).0`
+- Reset patch to 0
+
+**Examples:**
+- `v1.2.3` → `v1.3.0`
+- `v2.0.5` → `v2.1.0`
+
+### PATCH Version (Z)
+**Trigger phrases:**
+- "version patch", "patch version", "nouvelle version patch"
+- "incrémente la version patch", "bump patch"
+
+**Action:**
+- Increment third number: `vx.y.Z` → `vx.y.(Z+1)`
+
+**Examples:**
+- `v1.2.3` → `v1.2.4`
+- `v2.1.0` → `v2.1.1`
+
+## Implementation Guidelines
+
+### When User Requests Version Changes:
+1. **Identify the type** from trigger phrases
+2. **Find current version** in package.json or similar files
+3. **Apply the appropriate increment** following the rules above
+4. **Update all relevant files** (package.json, CHANGELOG.md, etc.)
+5. **Create git tag** with the new version
+
+### File Updates Required:
+- `package.json` - version field
+- `CHANGELOG.md` - add new version entry
+- Any other version references in the codebase
+
+### Git Operations:
+- Commit version changes
+- Create and push tag: `git tag vX.Y.Z && git push origin vX.Y.Z`
+
+## Error Handling
+- If current version format is invalid, ask user for clarification
+- If multiple version files exist, update all consistently
+- If unsure about version type, ask user to specify "major", "minor", or "patch"
+
+## Examples of Complete Workflow
+
+**User says:** "Nouvelle version majeure"
+**Current version:** v1.2.3
+**Actions:**
+1. Update package.json: `"version": "2.0.0"`
+2. Add to CHANGELOG.md: `## [2.0.0] - YYYY-MM-DD`
+3. Commit changes
+4. Create tag: `git tag v2.0.0`
+5. Push tag: `git push origin v2.0.0`
+description:
+globs:
+alwaysApply: false
+---

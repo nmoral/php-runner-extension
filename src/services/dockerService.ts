@@ -32,11 +32,7 @@ export class DockerService {
             }
             this.terminal = vscode.window.createTerminal({ name: 'Docker PHP Runner', cwd: workspacePath });
             this.terminal.show(true);
-            // Entête colorée pour plus de lisibilité dans le terminal
-            const bold = '\u001b[1m';
-            const cyan = '\u001b[36m';
-            const reset = '\u001b[0m';
-            this.terminal.sendText(`${bold}${cyan}Exécution de:${reset} ${dockerCommand}`);
+            // Exécuter directement la commande sans affichage préalable
             this.terminal.sendText(dockerCommand, true);
 
             // Nous ne pouvons pas capturer stdout/stderr depuis le terminal; retourner des valeurs vides
@@ -55,34 +51,27 @@ export class DockerService {
     }
 
     private buildDockerCommand(command: string, config: DockerConfiguration): string {
-        const { serviceName, containerName, phpExecutable } = config;
+        const { serviceName, containerName, phpExecutable, dockerUser } = config;
 
         if (serviceName) {
             const dockerComposePath = config.dockerComposePath;
+            const userOption = dockerUser ? ` --user ${dockerUser}` : '';
+            
             if (dockerComposePath) {
-                return `docker compose -f "${dockerComposePath}" exec ${serviceName} ${phpExecutable} ${command}`;
+                return `docker compose -f "${dockerComposePath}" exec${userOption} ${serviceName} ${phpExecutable} ${command}`;
             }
-            return `docker compose exec ${serviceName} ${phpExecutable} ${command}`;
+            return `docker compose exec${userOption} ${serviceName} ${phpExecutable} ${command}`;
         }
 
         if (containerName) {
-            return `docker exec ${containerName} ${phpExecutable} ${command}`;
+            const userOption = dockerUser ? ` --user ${dockerUser}` : '';
+            return `docker exec${userOption} ${containerName} ${phpExecutable} ${command}`;
         }
 
         throw new Error('Configuration Docker manquante');
     }
 
-    private displayCommandOutput(stdout: string, stderr: string): void {
-        if (stdout) {
-            this.output.appendLine('Sortie:');
-            this.output.appendLine(stdout);
-        }
 
-        if (stderr) {
-            this.output.appendLine('Erreurs:');
-            this.output.appendLine(stderr);
-        }
-    }
 
     async listContainerFiles(containerName: string, filePath: string = '/'): Promise<string[]> {
         try {

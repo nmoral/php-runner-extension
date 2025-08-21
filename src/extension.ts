@@ -20,18 +20,15 @@ class DockerPhpRunnerExtension {
     private initialize(): void {
         this.commandManager.registerCommands(this.context);
         vscode.window.registerTreeDataProvider('dockerPhpRunner.savedCommandsView', this.savedCommandsProvider);
-        this.output.appendLine('Extension Docker PHP Runner initialisée avec succès !');
     }
 }
 
 // Extension activation
 export function activate(context: vscode.ExtensionContext): void {
-    console.log('Extension "Docker PHP Runner" est maintenant active !');
     new DockerPhpRunnerExtension(context);
 }
 
 // Extension deactivation
 export function deactivate(): void {
-    console.log('Extension "Docker PHP Runner" est maintenant désactivée !');
 }
 

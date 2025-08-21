@@ -1,143 +1,245 @@
 # Docker PHP Runner Extension
 
-Une extension VS Code pour exécuter des commandes PHP dans des containers Docker et explorer les fichiers.
+A VS Code extension that makes running PHP commands in Docker containers as smooth as butter! 🐳☕
 
-## 🚀 Fonctionnalités
+## ✨ What's the fuss about?
 
-### Commandes PHP
-- **Exécuter une commande personnalisée** : Lancez n'importe quelle commande PHP dans votre container
-- **Vider le cache Symfony** : Commande rapide pour `bin/console cache:clear`
-- **Lancer les tests PHPUnit** : Exécute `bin/phpunit` dans le container
+Ever found yourself switching between VS Code and your terminal to run `docker-compose exec app bin/console cache:clear`? Yeah, we've been there too. This extension puts all your Docker PHP commands right in VS Code's command palette, so you can stay in your coding flow.
 
-### Exploration de fichiers
-- **Explorer les fichiers du workspace** : Ouvrez l'explorateur de fichiers VS Code
-- **Parcourir les fichiers du container** : Naviguez dans l'arborescence des fichiers du container Docker
+## 🚀 Features that'll make your day
 
-### Configuration
-- **Configuration automatique** : Détection automatique des services Docker Compose
-- **Sélection de fichiers** : Parcours, liste existante ou saisie manuelle
-- **Configuration persistante** : Sauvegarde des paramètres par workspace
+### PHP Commands (the good stuff)
+- **Custom Command Runner**: Execute any PHP command in your container with style
+- **Symfony Cache Clear**: One-click `bin/console cache:clear` (because who has time for cache issues?)
+- **PHPUnit Tests**: Run `bin/phpunit` without leaving your editor
+- **Saved Commands**: Save your favorite commands for quick access
 
-## 🏗️ Architecture Clean Code
+### File Exploration
+- **Workspace Explorer**: Browse your local files through VS Code
+- **Container File Browser**: Navigate through your container's file structure
 
-L'extension suit les principes de Clean Architecture avec une séparation claire des responsabilités :
+### Smart Configuration
+- **Auto-detection**: Automatically finds your Docker Compose services
+- **Flexible Setup**: Choose from existing files or enter paths manually
+- **Workspace Persistence**: Your settings stick around (unlike that coffee you forgot about)
 
+## 🛠️ Installation Guide
+
+### Prerequisites
+Before we dive in, make sure you have:
+- **VS Code** (version 1.74.0 or higher)
+- **Docker** and **Docker Compose** installed and running
+- A PHP project with a `docker-compose.yml` file
+
+### Method 1: From VSIX Package (Recommended)
+1. Download the latest `.vsix` file from the releases page
+2. In VS Code, go to **Extensions** (`Ctrl+Shift+X`)
+3. Click the **"..."** menu and select **"Install from VSIX..."**
+4. Choose your downloaded `.vsix` file
+5. Restart VS Code when prompted
+
+### Method 2: From Source (For the brave developers)
+```bash
+# Clone the repository
+git clone https://github.com/your-username/docker-php-runner.git
+cd docker-php-runner
+
+# Install dependencies
+npm install
+
+# Compile the extension
+npm run compile
+
+# Package the extension
+npm run package
+
+# Install the generated .vsix file in VS Code
 ```
-src/
-├── types/           # Interfaces et types TypeScript
-├── constants/       # Constantes et messages
-├── utils/           # Utilitaires (gestion des fichiers)
-├── services/        # Logique métier
-│   ├── dockerService.ts      # Opérations Docker
-│   └── configurationService.ts # Gestion de la configuration
-├── commands/        # Gestionnaire de commandes
-└── extension.ts     # Point d'entrée principal
-```
 
-### Avantages de cette architecture :
-- **Séparation des responsabilités** : Chaque classe a une responsabilité unique
-- **Testabilité** : Services facilement testables en isolation
-- **Maintenabilité** : Code organisé et facile à modifier
-- **Extensibilité** : Ajout de nouvelles fonctionnalités simplifié
-- **Réutilisabilité** : Services réutilisables dans différents contextes
+## ⚙️ Configuration - Let's get you set up!
 
-## 📦 Installation
+### Quick Setup (The lazy way - we approve!)
+1. Open your PHP project in VS Code
+2. Press `Ctrl+Shift+P` to open the command palette
+3. Type "Docker PHP: Configure Container"
+4. Follow the friendly setup wizard
 
-1. Clonez ce repository
-2. Installez les dépendances : `npm install`
-3. Compilez l'extension : `npm run compile`
-4. Installez l'extension dans VS Code
+The extension will automatically detect your Docker Compose services and guide you through the configuration. It's like having a helpful intern, but without the coffee runs!
 
-## ⚙️ Configuration
-
-### Configuration automatique (recommandée)
-1. Ouvrez la palette de commandes (`Ctrl+Shift+P`)
-2. Tapez "Docker PHP: Configurer le container"
-3. Suivez l'assistant de configuration
-
-### Configuration manuelle
-Ajoutez ces paramètres dans vos paramètres VS Code :
+### Manual Configuration (For the control freaks)
+If you prefer to configure everything manually, add these settings to your VS Code workspace settings:
 
 ```json
 {
   "dockerPhpRunner.serviceName": "app",
   "dockerPhpRunner.workingDirectory": "/var/www/html",
   "dockerPhpRunner.phpExecutable": "php",
-  "dockerPhpRunner.dockerComposePath": "./docker-compose.yml"
+  "dockerPhpRunner.dockerComposePath": "./docker-compose.yml",
+  "dockerPhpRunner.dockerUser": "www-data"
 }
 ```
 
-## 🎯 Utilisation
+### Configuration Options Explained
 
-### Commandes disponibles
-- `Ctrl+Shift+P` puis "Docker PHP: Exécuter une commande"
-- `Ctrl+Shift+P` puis "Docker PHP: Vider le cache Symfony"
-- `Ctrl+Shift+P` puis "Docker PHP: Lancer les tests PHPUnit"
-- `Ctrl+Shift+P` puis "Docker PHP: Explorer les fichiers du workspace"
-- `Ctrl+Shift+P` puis "Docker PHP: Parcourir les fichiers du container"
+| Setting | Description | Default | Example |
+|---------|-------------|---------|---------|
+| `serviceName` | Your Docker service name | - | `"app"`, `"php"`, `"backend"` |
+| `workingDirectory` | Working directory in container | `"/var/www/html"` | `"/app"`, `"/var/www"` |
+| `phpExecutable` | PHP executable path | `"php"` | `"php8.2"`, `"/usr/local/bin/php"` |
+| `dockerComposePath` | Path to docker-compose.yml | Auto-detected | `"./docker-compose.yml"` |
+| `dockerUser` | Docker user for commands | Container default | `"www-data"`, `"1000:1000"` |
 
-### Exemples d'utilisation
+### Docker User Configuration
+This is where it gets interesting! You can specify which user runs your commands:
+
+- **`root`**: The classic "I do what I want" approach
+- **`www-data`**: The web server way (recommended for production-like setups)
+- **`1000:1000`**: The developer way (matches your local user ID)
+- **Custom**: Whatever floats your boat
+
+```json
+{
+  "dockerPhpRunner.dockerUser": "www-data"
+}
+```
+
+## 🎯 How to Use (The fun part!)
+
+### Available Commands
+All commands are available through the command palette (`Ctrl+Shift+P`):
+
+- **`Docker PHP: Run Command`** - Execute any PHP command
+- **`Docker PHP: Clear Symfony Cache`** - Clear that pesky cache
+- **`Docker PHP: Run PHPUnit Tests`** - Run your tests
+- **`Docker PHP: Configure Container`** - Set up your container
+- **`Docker PHP: Explore Workspace Files`** - Browse local files
+- **`Docker PHP: Browse Container Files`** - Explore container files
+- **`Docker PHP: Run Saved Command`** - Execute a saved command
+- **`Docker PHP: Add Saved Command`** - Save a new command
+
+### Saved Commands Feature
+Save your frequently used commands for quick access:
+
+```json
+{
+  "dockerPhpRunner.savedCommands": [
+    {
+      "label": "Clear All Caches",
+      "command": "bin/console cache:clear"
+    },
+    {
+      "label": "Database Migration",
+      "steps": [
+        "bin/console doctrine:migrations:migrate --no-interaction",
+        "bin/console cache:clear"
+      ]
+    }
+  ]
+}
+```
+
+### Real-world Examples
+Here are some commands you might actually use:
+
 ```bash
-# Exécuter une commande personnalisée
-bin/console doctrine:migrations:migrate
-
-# Vider le cache
+# Symfony commands
 bin/console cache:clear
+bin/console doctrine:migrations:migrate
+bin/console make:entity User
 
-# Lancer les tests
-bin/phpunit --filter=UserTest
-
-# Installer des dépendances
+# Composer commands
 composer install
+composer update
+composer dump-autoload
+
+# Testing
+bin/phpunit
+bin/phpunit --filter=UserTest
+vendor/bin/phpstan analyse
+
+# Custom scripts
+php bin/console app:import-data
+php scripts/deploy.php
 ```
 
-## 🔧 Développement
+## 🐛 Troubleshooting - When things go sideways
 
-### Structure du projet
-- **TypeScript** : Langage principal
-- **ESLint** : Linting du code
-- **VS Code API** : Intégration avec l'éditeur
+### Common Issues and Solutions
 
-### Scripts disponibles
+**"Container not found" error**
+- Make sure your Docker containers are running: `docker-compose up -d`
+- Check your service name in `docker-compose.yml`
+
+**"Service not recognized" error**
+- Verify your `docker-compose.yml` file exists
+- Use the "Docker PHP: Choose Service" command for auto-completion
+
+**Permission denied errors**
+- Try changing the `dockerUser` setting to `root` temporarily
+- Check your Docker Compose user configuration
+
+**Commands not working as expected**
+- Check the extension's output panel for detailed error messages
+- Verify your `workingDirectory` setting matches your project structure
+
+### Getting Help
+- **Extension Output**: View detailed logs in the "Docker PHP Runner" output panel
+- **Command Palette**: Use "Developer: Reload Window" if things get weird
+- **GitHub Issues**: Found a bug? Let us know!
+
+## 🏗️ Development - For the curious minds
+
+### Project Structure
+```
+src/
+├── types/           # TypeScript interfaces
+├── constants/       # Constants and messages
+├── utils/           # File utilities
+├── services/        # Business logic
+│   ├── dockerService.ts      # Docker operations
+│   └── configurationService.ts # Configuration management
+├── commands/        # Command handlers
+└── extension.ts     # Main entry point
+```
+
+### Development Setup
 ```bash
-npm run compile    # Compilation TypeScript
-npm run watch      # Compilation en mode watch
-npm run lint       # Vérification du code
-npm run test       # Exécution des tests
+# Install dependencies
+npm install
+
+# Compile in watch mode
+npm run watch
+
+# Run tests
+npm run test
+
+# Lint code
+npm run lint
+
+# Package extension
+npm run package
 ```
 
-### Ajout de nouvelles fonctionnalités
-1. Créez les types dans `src/types/`
-2. Ajoutez les constantes dans `src/constants/`
-3. Implémentez la logique dans `src/services/`
-4. Créez la commande dans `src/commands/`
-5. Mettez à jour `package.json`
+## 📝 License
 
-## 🐛 Dépannage
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Problèmes courants
-- **Container non trouvé** : Vérifiez que le container est en cours d'exécution
-- **Service non reconnu** : Vérifiez le nom du service dans docker-compose.yml
-- **Permissions** : Assurez-vous d'avoir les droits d'exécution Docker
+## 🤝 Contributing
 
-### Logs
-Les logs de l'extension sont disponibles dans le panneau de sortie "Docker PHP Runner".
+We love contributions! Here's how you can help:
 
-## 📝 Licence
+1. **Report bugs** - Even the smallest issues matter
+2. **Suggest features** - We're always looking for new ideas
+3. **Submit pull requests** - Code contributions are welcome
+4. **Improve documentation** - Help others understand the extension
 
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+## 📞 Support & Community
 
-## 🤝 Contribution
+- **GitHub Issues**: [Report bugs or request features](https://github.com/your-username/docker-php-runner/issues)
+- **Documentation**: Check the [Wiki](https://github.com/your-username/docker-php-runner/wiki) for detailed guides
+- **Discussions**: Join the conversation in [GitHub Discussions](https://github.com/your-username/docker-php-runner/discussions)
 
-Les contributions sont les bienvenues ! N'hésitez pas à :
-1. Signaler des bugs
-2. Proposer des améliorations
-3. Soumettre des pull requests
+---
 
-## 📞 Support
-
-Pour toute question ou problème :
-- Ouvrez une issue sur GitHub
-- Consultez la documentation
-- Vérifiez les logs de l'extension
+**Happy coding!** 🎉 Remember, the best code is the code that makes you smile (and doesn't break in production).
 

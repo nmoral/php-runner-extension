@@ -81,7 +81,6 @@ export class CommandManager {
             const cmd = await vscode.window.showInputBox({ prompt: 'Commande à exécuter', placeHolder: 'ex: bin/console cache:clear' });
             if (!cmd) { return; }
             await this.configurationService.addSavedCommand({ label, command: cmd });
-            vscode.window.showInformationMessage(`Commande enregistrée: ${label}`);
             return;
         }
 
@@ -94,7 +93,6 @@ export class CommandManager {
         }
         if (steps.length === 0) { return; }
         await this.configurationService.addSavedCommand({ label, steps });
-        vscode.window.showInformationMessage(`Séquence enregistrée: ${label} (${steps.length} étape(s))`);
     }
 
     private async editSavedCommand(arg?: any): Promise<void> {
@@ -130,7 +128,6 @@ export class CommandManager {
             const cmd = await vscode.window.showInputBox({ prompt: 'Commande', value: existing.command || '' });
             if (!cmd) { return; }
             await this.configurationService.updateSavedCommandAt(index, { label: newLabel, command: cmd });
-            vscode.window.showInformationMessage('Commande mise à jour');
             return;
         }
 
@@ -156,7 +153,6 @@ export class CommandManager {
         }
         if (steps.length === 0) { return; }
         await this.configurationService.updateSavedCommandAt(index, { label: newLabel, steps });
-        vscode.window.showInformationMessage('Séquence mise à jour');
     }
 
     private async deleteSavedCommand(arg?: any): Promise<void> {
@@ -176,7 +172,6 @@ export class CommandManager {
         const confirm = await vscode.window.showWarningMessage('Supprimer cette commande enregistrée ?', { modal: true }, 'Supprimer');
         if (confirm !== 'Supprimer') { return; }
         await this.configurationService.deleteSavedCommandAt(index);
-        vscode.window.showInformationMessage('Commande supprimée');
     }
 
     private async runCustomCommand(): Promise<void> {
@@ -261,7 +256,6 @@ export class CommandManager {
             }
 
             await this.dockerService.executeCommand(command, config);
-            vscode.window.showInformationMessage(`${MESSAGES.COMMAND_SUCCESS}: ${command}`);
 
         } catch (error: any) {
             const errorMessage = `Erreur lors de l'exécution de la commande: ${error.message}`;
@@ -326,7 +320,6 @@ export class CommandManager {
 
             const config = vscode.workspace.getConfiguration(section);
             await config.update(key, fullPath, vscode.ConfigurationTarget.Workspace);
-            vscode.window.showInformationMessage('Chemin docker-compose mis à jour.');
         } catch (error: any) {
             const errorMessage = `Erreur lors de la sélection de fichier: ${error.message}`;
             this.output.appendLine(errorMessage);
@@ -384,7 +377,6 @@ export class CommandManager {
 
             const configEditor = vscode.workspace.getConfiguration('dockerPhpRunner');
             await configEditor.update('serviceName', serviceName, vscode.ConfigurationTarget.Workspace);
-            vscode.window.showInformationMessage(`Service sélectionné: ${serviceName}`);
         } catch (error: any) {
             const errorMessage = `Erreur lors de la sélection du service: ${error.message}`;
             this.output.appendLine(errorMessage);

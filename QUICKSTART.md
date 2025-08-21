@@ -1,183 +1,254 @@
 # 🚀 Guide de démarrage rapide - Docker PHP Runner
 
-## ⚡ Installation en 30 secondes
+Une extension VS Code qui rend l'exécution de commandes PHP dans des containers Docker aussi fluide que du beurre ! 🐳☕
 
-1. **Installer l'extension** depuis le marketplace VS Code
-2. **Ouvrir votre projet** PHP avec Docker
-3. **Lancer la configuration** : `Ctrl+Shift+P` → "Docker PHP: Configurer le container"
-4. **C'est tout !** 🎉
+## ✨ De quoi s'agit-il ?
 
-## 🎯 Première utilisation
+Vous en avez marre de jongler entre VS Code et votre terminal pour exécuter `docker-compose exec app bin/console cache:clear` ? On est passés par là aussi ! Cette extension met toutes vos commandes Docker PHP directement dans la palette de commandes de VS Code, pour que vous puissiez rester dans votre flux de développement.
 
-### 1. Configuration automatique
-```
-Ctrl+Shift+P → "Docker PHP: Configurer le container"
-```
+## 🚀 Fonctionnalités qui vont changer votre journée
 
-### 2. Sélection du fichier docker-compose
-Choisissez parmi 3 options :
-- 📁 **Parcourir** : Interface graphique pour sélectionner le fichier
-- 🔍 **Défaut** : Utilise le fichier du workspace
-- ✏️ **Manuel** : Saisie avec autocomplétion
+### Commandes PHP (le bon stuff)
+- **Exécuteur de commandes personnalisées** : Exécutez n'importe quelle commande PHP dans votre container avec style
+- **Vidage du cache Symfony** : Un clic pour `bin/console cache:clear` (parce que qui a le temps pour les problèmes de cache ?)
+- **Tests PHPUnit** : Lancez `bin/phpunit` sans quitter votre éditeur
+- **Commandes enregistrées** : Sauvegardez vos commandes préférées pour un accès rapide
 
-### 3. Sélection du service
-L'extension détecte automatiquement vos services PHP disponibles.
+### Exploration de fichiers
+- **Explorateur de workspace** : Parcourez vos fichiers locaux via VS Code
+- **Navigateur de fichiers du container** : Naviguez dans la structure de fichiers de votre container
 
-### 4. Configuration des paramètres
-- **Répertoire de travail** : Suggestions automatiques (`/var/www/html`, `/app`, etc.)
-- **Exécutable PHP** : Suggestions automatiques (`php`, `/usr/local/bin/php`, etc.)
+### Configuration intelligente
+- **Détection automatique** : Trouve automatiquement vos services Docker Compose
+- **Configuration flexible** : Choisissez parmi les fichiers existants ou entrez les chemins manuellement
+- **Persistance du workspace** : Vos paramètres restent (contrairement à ce café que vous avez oublié)
 
-## 🚀 Utilisation immédiate
+## 📦 Installation de l'extension
 
-### Commandes rapides
-```
-Ctrl+Shift+P → "Docker PHP: Vider le cache Symfony"
-Ctrl+Shift+P → "Docker PHP: Lancer les tests PHPUnit"
-```
+### Prérequis
+Avant de plonger, assurez-vous d'avoir :
+- **VS Code** (version 1.74.0 ou supérieure)
+- **Docker** et **Docker Compose** installés et en cours d'exécution
+- Un projet PHP avec un fichier `docker-compose.yml`
 
-### Commandes personnalisées
-```
-Ctrl+Shift+P → "Docker PHP: Exécuter une commande"
-→ Entrer: bin/console cache:clear
-→ Entrer: composer install
-→ Entrer: php artisan migrate
-```
+### Méthode 1 : Depuis le package VSIX (Recommandée)
+1. **Téléchargez** le fichier `docker-php-runner-1.0.0-RC2.vsix`
+2. **Ouvrez VS Code**
+3. **Appuyez sur** `Ctrl+Shift+P` (ou `Cmd+Shift+P` sur Mac)
+4. **Tapez** : `Extensions: Install from VSIX...`
+5. **Sélectionnez** le fichier `docker-php-runner-1.0.0-RC2.vsix`
+6. **Redémarrez** VS Code
 
-## 📁 Structure de projet supportée
-
-### ✅ Projets standards
-```
-mon-projet/
-├── docker-compose.yml          ← Détecté automatiquement
-├── src/
-└── README.md
+### Méthode 2 : Via la ligne de commande
+```bash
+code --install-extension docker-php-runner-1.0.0-RC2.vsix
 ```
 
-### ✅ Projets avec structure personnalisée
-```
-mon-projet/
-├── src/
-├── docker/
-│   └── docker-compose.yml     ← Sélectionnable via l'interface
-└── README.md
+## 🔧 Correction du problème d'affichage des codes ANSI
+
+### Problème résolu dans la version 1.0.0-RC2
+
+Si vous rencontriez des caractères étranges comme `^[[1m^[[36m` ou des erreurs `zsh: command not found: mExécution` dans votre terminal, ce problème a été corrigé dans cette version.
+
+**Avant (problématique) :**
+```bash
+^[[1m^[[36mExécution de:^[[0m docker compose -f "/path/to/docker-compose.yml" exec --user www-data php php vendor/bin/php-cs-fixer fix --quiet
+zsh: command not found: mExécution
 ```
 
-### ✅ Projets multi-environnements
-```
-mon-projet/
-├── docker-compose.yml          ← Développement
-├── docker-compose.prod.yml     ← Production
-├── docker-compose.test.yml     ← Tests
-└── src/
+**Après (corrigé) :**
+```bash
+Exécution de: docker compose -f "/path/to/docker-compose.yml" exec --user www-data php php vendor/bin/php-cs-fixer fix --quiet
 ```
 
-## 🔧 Configuration avancée
+### Mise à jour depuis une version précédente
+1. **Désinstallez** l'ancienne version de l'extension
+2. **Installez** la nouvelle version `1.0.0-RC2`
+3. **Redémarrez** VS Code
 
-### Paramètres VS Code
+## ⚙️ Configuration - Mettons-nous en place !
+
+### Configuration rapide (La méthode paresseuse - on approuve !)
+1. **Ouvrez** votre projet PHP dans VS Code
+2. **Appuyez sur** `Ctrl+Shift+P` pour ouvrir la palette de commandes
+3. **Tapez** "Docker PHP: Configurer le container"
+4. **Suivez** l'assistant de configuration amical
+
+L'extension détectera automatiquement vos services Docker Compose et vous guidera à travers la configuration. C'est comme avoir un stagiaire serviable, mais sans les courses de café !
+
+### Configuration manuelle (Pour les maniaques du contrôle)
+Si vous préférez tout configurer manuellement, ajoutez ces paramètres à vos paramètres de workspace VS Code :
+
 ```json
 {
   "dockerPhpRunner.serviceName": "app",
   "dockerPhpRunner.workingDirectory": "/var/www/html",
   "dockerPhpRunner.phpExecutable": "php",
-  "dockerPhpRunner.dockerComposePath": "./docker-compose.yml"
+  "dockerPhpRunner.dockerComposePath": "./docker-compose.yml",
+  "dockerPhpRunner.dockerUser": "www-data"
 }
 ```
 
-### Variables d'environnement
-```bash
-# Dans votre docker-compose.yml
-environment:
-  - APP_ENV=dev
-  - DATABASE_URL=mysql://user:pass@db:3306/myapp
+### Options de configuration expliquées
+
+| Paramètre | Description | Défaut | Exemple |
+|-----------|-------------|--------|---------|
+| `serviceName` | Nom de votre service Docker | - | `"app"`, `"php"`, `"backend"` |
+| `workingDirectory` | Répertoire de travail dans le container | `"/var/www/html"` | `"/app"`, `"/var/www"` |
+| `phpExecutable` | Chemin vers l'exécutable PHP | `"php"` | `"php8.2"`, `"/usr/local/bin/php"` |
+| `dockerComposePath` | Chemin vers docker-compose.yml | Auto-détecté | `"./docker-compose.yml"` |
+| `dockerUser` | Utilisateur Docker pour les commandes | Défaut du container | `"www-data"`, `"1000:1000"` |
+
+### Configuration de l'utilisateur Docker
+C'est là que ça devient intéressant ! Vous pouvez spécifier quel utilisateur exécute vos commandes :
+
+- **`root`** : L'approche classique "Je fais ce que je veux"
+- **`www-data`** : La façon serveur web (recommandée pour les setups de production)
+- **`1000:1000`** : La façon développeur (correspond à votre UID local)
+- **Personnalisé** : Tout ce qui vous plaît
+
+```json
+{
+  "dockerPhpRunner.dockerUser": "www-data"
+}
 ```
 
-## 🎨 Interface utilisateur
+## 🎯 Comment utiliser (La partie amusante !)
 
-### Sélecteur de fichier
-- **Interface native VS Code**
-- **Filtres automatiques** pour les fichiers YAML
-- **Validation en temps réel**
+### Commandes disponibles
+Toutes les commandes sont disponibles via la palette de commandes (`Ctrl+Shift+P`) :
 
-### Autocomplétion
-- **Chemins suggérés** : `docker-compose.yml`, `docker-compose.override.yml`
-- **Répertoires suggérés** : `/var/www/html`, `/app`, `/var/www`
-- **Exécutables suggérés** : `php`, `/usr/local/bin/php`
+- **`Docker PHP: Exécuter une commande`** - Exécutez n'importe quelle commande PHP
+- **`Docker PHP: Vider le cache Symfony`** - Videz ce cache embêtant
+- **`Docker PHP: Lancer les tests PHPUnit`** - Lancez vos tests
+- **`Docker PHP: Configurer le container`** - Configurez votre container
+- **`Docker PHP: Explorer les fichiers du workspace`** - Parcourez les fichiers locaux
+- **`Docker PHP: Parcourir les fichiers du container`** - Explorez les fichiers du container
+- **`Docker PHP: Exécuter une commande enregistrée`** - Exécutez une commande sauvegardée
+- **`Docker PHP: Ajouter une commande enregistrée`** - Sauvegardez une nouvelle commande
 
-### Configuration guidée
-- **Assistant étape par étape**
-- **Validation automatique**
-- **Suggestions contextuelles**
+### Fonctionnalité des commandes enregistrées
+Sauvegardez vos commandes fréquemment utilisées pour un accès rapide :
 
-## 🚨 Résolution de problèmes
+```json
+{
+  "dockerPhpRunner.savedCommands": [
+    {
+      "label": "Vider tous les caches",
+      "command": "bin/console cache:clear"
+    },
+    {
+      "label": "Migration de base de données",
+      "steps": [
+        "bin/console doctrine:migrations:migrate --no-interaction",
+        "bin/console cache:clear"
+      ]
+    }
+  ]
+}
+```
 
-### Problème : "Configuration Docker manquante"
-**Solution** : Lancez `Docker PHP: Configurer le container`
+### Exemples concrets
+Voici quelques commandes que vous pourriez réellement utiliser :
 
-### Problème : "Fichier docker-compose non trouvé"
-**Solution** : Utilisez le sélecteur de fichier ou vérifiez le chemin
-
-### Problème : "Service non trouvé"
-**Solution** : Vérifiez que le service existe dans docker-compose.yml
-
-### Problème : Container non démarré
-**Solution** : Lancez `docker-compose up -d` dans votre terminal
-
-## 📚 Commandes utiles
-
-### Symfony
 ```bash
+# Commandes Symfony
 bin/console cache:clear
 bin/console doctrine:migrations:migrate
 bin/console make:entity User
-```
 
-### Laravel
-```bash
-php artisan cache:clear
-php artisan migrate
-php artisan make:controller HomeController
-```
-
-### Composer
-```bash
+# Commandes Composer
 composer install
 composer update
 composer dump-autoload
-```
 
-### Tests
-```bash
+# Tests
 bin/phpunit
-bin/phpunit --coverage-html coverage/
+bin/phpunit --filter=UserTest
 vendor/bin/phpstan analyse
+
+# Scripts personnalisés
+php bin/console app:import-data
+php scripts/deploy.php
 ```
 
-## 🔍 Détection automatique
+## 🐛 Dépannage - Quand les choses tournent mal
 
-L'extension détecte automatiquement :
-- ✅ **Services** dans docker-compose.yml
-- ✅ **Fichiers** existants
-- ✅ **Chemins** communs
-- ✅ **Répertoires** de travail standards
-- ✅ **Exécutables** PHP courants
+### Problèmes courants et solutions
 
-## 🎉 Avantages
+**Erreur "Container not found"**
+- Assurez-vous que vos containers Docker sont en cours d'exécution : `docker-compose up -d`
+- Vérifiez votre nom de service dans `docker-compose.yml`
 
-- **Interface intuitive** : Plus besoin de mémoriser les chemins
-- **Configuration automatique** : Détection intelligente des paramètres
-- **Validation en temps réel** : Moins d'erreurs de configuration
-- **Flexibilité maximale** : Support de toutes les structures de projet
-- **Productivité** : Commandes rapides et personnalisées
+**Erreur "Service not recognized"**
+- Vérifiez que votre fichier `docker-compose.yml` existe
+- Utilisez la commande "Docker PHP: Choisir un service" pour l'auto-complétion
 
-## 🆘 Besoin d'aide ?
+**Erreurs de permission refusée**
+- Essayez de changer le paramètre `dockerUser` à `root` temporairement
+- Vérifiez votre configuration utilisateur Docker Compose
 
-1. **Documentation complète** : Voir `README.md`
-2. **Démonstration** : Voir `DEMO.md`
-3. **Configuration** : Voir `.vscode/settings.example.json`
-4. **Exemple Docker** : Voir `docker-compose.example.yml`
+**Les commandes ne fonctionnent pas comme prévu**
+- Vérifiez le panneau de sortie de l'extension pour des messages d'erreur détaillés
+- Vérifiez que votre paramètre `workingDirectory` correspond à la structure de votre projet
+
+### Obtenir de l'aide
+- **Sortie de l'extension** : Consultez les logs détaillés dans le panneau de sortie "Docker PHP Runner"
+- **Palette de commandes** : Utilisez "Developer: Reload Window" si les choses deviennent bizarres
+- **GitHub Issues** : Trouvé un bug ? Faites-le nous savoir !
+
+## 🏗️ Développement - Pour les esprits curieux
+
+### Structure du projet
+```
+src/
+├── types/           # Interfaces TypeScript
+├── constants/       # Constantes et messages
+├── utils/           # Utilitaires de fichiers
+├── services/        # Logique métier
+│   ├── dockerService.ts      # Opérations Docker
+│   └── configurationService.ts # Gestion de la configuration
+├── commands/        # Gestionnaires de commandes
+└── extension.ts     # Point d'entrée principal
+```
+
+### Configuration de développement
+```bash
+# Installer les dépendances
+npm install
+
+# Compiler en mode watch
+npm run watch
+
+# Lancer les tests
+npm run test
+
+# Linter le code
+npm run lint
+
+# Emballer l'extension
+npm run package
+```
+
+## 📝 Licence
+
+Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+## 🤝 Contribution
+
+On adore les contributions ! Voici comment vous pouvez aider :
+
+1. **Signaler des bugs** - Même les plus petits problèmes comptent
+2. **Suggérer des fonctionnalités** - On cherche toujours de nouvelles idées
+3. **Soumettre des pull requests** - Les contributions de code sont les bienvenues
+4. **Améliorer la documentation** - Aidez les autres à comprendre l'extension
+
+## 📞 Support & Communauté
+
+- **GitHub Issues** : [Signaler des bugs ou demander des fonctionnalités](https://github.com/your-username/docker-php-runner/issues)
+- **Documentation** : Consultez le [Wiki](https://github.com/your-username/docker-php-runner/wiki) pour des guides détaillés
+- **Discussions** : Rejoignez la conversation dans [GitHub Discussions](https://github.com/your-username/docker-php-runner/discussions)
 
 ---
 
-**Développé avec ❤️ pour la communauté PHP et Docker**
-
-**Extension Docker PHP Runner v0.0.3** 🚀
+**Bon codage !** 🎉 N'oubliez pas, le meilleur code est celui qui vous fait sourire (et qui ne casse pas en production).

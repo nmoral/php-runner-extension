@@ -15,6 +15,7 @@ export interface DockerConfiguration {
     workingDirectory: string;
     phpExecutable: string;
     dockerComposePath?: string;
+    dockerUser?: string;
 }
 
 export interface SavedCommand {
