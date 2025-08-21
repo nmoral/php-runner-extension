@@ -3,7 +3,7 @@
   "displayName": "Docker PHP Runner",
   "publisher": "nmoral",
   "description": "Exécute des commandes PHP dans des containers Docker avec une interface intuitive dans VS Code",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "docker",
     "php",
